@@ -1,0 +1,52 @@
+{% extends 'base.html.twig'%}
+{% block body%}
+    <h1>Accueil via Twig</h1>
+    {# Un commentaire dans Twig ! #}
+    {# Crée une variable dans Twig ! #}
+    {% set name="Toto" %}
+
+    <h2>{{ name | upper }}</h2>
+    <h2>{{ name | lower }}</h2>
+    <p>Longueur de nom : {{ name | length }}</p>
+
+    {# Crée un tableau #}
+    {% set colors=["orange","brown","turquoise","blue"] %}
+    <p>Longueur du tableau colors : {{ colors | length }}</p>
+    <p>{{ colors | join ('/') }}</p>
+    {# Boucle sur le tableau #}
+    {% for color in colors %}
+        <div style="background-color: {{ color }}">{{ color }}</div>
+    {% endfor %}
+
+    {% for color in colors %}
+        <div>{{ loop.index }} - {{ color }}</div>
+    {% endfor %}
+    <p>{{ "+1 year"|date('Y') }}</p>
+    <p>{{ "+1 month"|date('Y/m/d') }}</p>
+    <p>{{ "+1 day"|date('Y/m/d') }}</p>
+
+    <hr>
+    {# Crée un Objet en Twig #}
+    {%
+        set book = {
+            title: 'Symfony',
+            year:2000,
+            author: 'John Doe'
+        }
+    %}
+    <h3>{{ book.author }}</h3>
+    <div>
+        {% for key,val in book %}
+            <div>{{ key }} : {{ val }}</div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block title %}{{ parent() }} | Accueil {% endblock %}
+
+
+
+
+
+
+
