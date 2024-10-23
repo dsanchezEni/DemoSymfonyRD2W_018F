@@ -16,6 +16,32 @@ class CourseRepository extends ServiceEntityRepository
         parent::__construct($registry, Course::class);
     }
 
+    /**
+     * Méthode qui permet de retourner les 5 derniers cours créés.
+     * @return array
+     */
+    public function findLastCourses(int $duration=2) :array
+    {
+        //En DQL
+        /*$entityManager = $this->getEntityManager();
+        $dql = 'SELECT c 
+                FROM App\Entity\Course c
+                WHERE c.duration > 2 
+                ORDER BY c.dateCreated DESC';
+        $query = $entityManager->createQuery($dql);
+        $query->setMaxResults(5);
+        return $query->getResult();*/
+
+        //En QueryBuilder
+        $querybuilder = $this->createQueryBuilder('c')
+            ->andWhere('c.duration > :duration')
+            ->addOrderBy('c.dateCreated', 'DESC')
+            ->setParameter('duration', $duration)
+            ->setMaxResults(5);
+        $query = $querybuilder->getQuery();
+        return $query->getResult();
+    }
+
     //    /**
     //     * @return Course[] Returns an array of Course objects
     //     */

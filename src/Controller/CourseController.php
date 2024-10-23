@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Course;
+use App\Repository\CourseRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,11 +14,18 @@ use Symfony\Component\Routing\Attribute\Route;
 class CourseController extends AbstractController
 {
     #[Route('/', name: 'list',methods: ['GET'])]
-    public function list(): Response
+    public function list(CourseRepository $courseRepository): Response
     {
         //TODO Rechercher dans la BD la liste de l'ensemble des cours.
+        //$allCours = $courseRepository->findAll();
+        $allCours = $courseRepository->findBy([],['name'=>'DESC'],5);
+        $courses = $courseRepository->findLastCourses();
         return $this->render('course/list.html.twig',
-            []
+            [
+                'courses' => $courses,
+                'allCours' => $allCours,
+                'tests'=>null
+            ]
         );
     }
 

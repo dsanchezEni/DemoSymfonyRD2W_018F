@@ -2,7 +2,42 @@
 
 {% block body %}
     <h1>Liste des cours</h1>
-
+{{ dump(courses) }}
+    <ul>
+    {% for cours in courses %}
+        <li>
+            <p>Nom : {{ cours.name }}</p>
+            <p>Contenu: {{ cours.content }}</p>
+            <p>Durée (en jours): {{ cours.duration }}</p>
+            <p>Publié: {{ cours.published ? "Oui" : "Non" }}</p>
+            <p>Date Création: {{ cours.dateCreated | date('Y-m-d h:i:s') }}</p>
+        </li>
+    {% else %}
+        <p>Aucun cours présent dans la BD.</p>
+    {% endfor %}
+    </ul>
+<hr>
+    <ul>
+        {% for cours in allCours %}
+            <li>
+                <p>Nom : {{ cours.name }}</p>
+                <p>Contenu: {{ cours.content }}</p>
+            </li>
+        {% else %}
+            <p>Aucun cours présent dans la BD.</p>
+        {% endfor %}
+    </ul>
+<hr>
+<ul>
+    {% for cours in tests %}
+        <li>
+            <p>Nom : {{ cours.name }}</p>
+            <p>Contenu: {{ cours.content }}</p>
+        </li>
+    {% else %}
+        <p>Aucun cours présent dans la BD.</p>
+    {% endfor %}
+</ul>
 {% endblock %}
 
 {% block title %}
