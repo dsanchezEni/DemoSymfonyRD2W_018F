@@ -10,6 +10,9 @@ class CourseFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        //Initialisation de Faker.
+        $faker = \Faker\Factory::create('fr_FR');
+
         $course = new Course();
         //hydrater toutes les propriétés de l'objet Course.
         $course->setName('Symfony');
@@ -41,10 +44,14 @@ class CourseFixtures extends Fixture
         for($i=1;$i<=30;$i++){
             $course = new Course();
             //hydrater toutes les propriétés de l'objet Course.
-            $course->setName("Cours $i");
-            $course->setContent("Description cours $i");
+            $course->setName($faker->word());
+            $course->setContent($faker->realText());
             $course->setDuration(mt_rand(1,10));
-            $course->setDateCreated(new \DateTimeImmutable());
+            $dateCreated=$faker->dateTimeBetween('-2 months','now');
+            //DateTimeBetween retourne un dateTime, donc il faut le convertir en DateTimeImmutable
+            $course->setDateCreated(\DateTimeImmutable::createFromMutable($dateCreated));
+            $dateModified=$faker->dateTimeBetween($course->getDateCreated()->format('Y-m-d'),'now');
+            $course->setDateModified(\DateTimeImmutable::createFromMutable($dateModified));
             $course->setPublished(false);
             $manager->persist($course);
         }
