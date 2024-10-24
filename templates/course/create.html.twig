@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}
+    Creer Cours | {{ parent() }}
+{% endblock %}
 {% block body %}
 <h1>Créer Cours</h1>
+    <div>{{ form(courseForm) }}</div>
 {% endblock %}
 
-{% block title %}
-Creer Cours | {{ parent() }}
-{% endblock %}
+
 
