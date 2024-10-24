@@ -6,6 +6,7 @@ use App\Entity\Course;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,12 +33,15 @@ class CourseType extends AbstractType
                     'label'=>'Publié',
                     'required'=>false
                 ])
-            ->add('dateCreated', null, [
+          /*  ->add('dateCreated', null, [
                 'widget' => 'single_text',
-            ])
+            ])*/
             ->add('dateModified', null, [
                 'widget' => 'single_text',
             ])
+          /*  ->add('btnCreate', SubmitType::class, [
+                'label'=>'Ajouter'
+            ])*/
         ;
     }
 

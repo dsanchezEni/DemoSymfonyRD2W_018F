@@ -40,6 +40,8 @@ class Course
     {
         //Permet d'initialiser l'attribut published à false quand je crée l'objet Course.
         $this->published = false;
+        //J'initialise ma date de création à la date du jours.
+        $this->dateCreated = new \DateTimeImmutable();
     }
 
     //-------------------------------------------------
