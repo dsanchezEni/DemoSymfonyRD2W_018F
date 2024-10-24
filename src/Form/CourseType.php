@@ -36,9 +36,9 @@ class CourseType extends AbstractType
           /*  ->add('dateCreated', null, [
                 'widget' => 'single_text',
             ])*/
-            ->add('dateModified', null, [
+           /* ->add('dateModified', null, [
                 'widget' => 'single_text',
-            ])
+            ])*/
           /*  ->add('btnCreate', SubmitType::class, [
                 'label'=>'Ajouter'
             ])*/

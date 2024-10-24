@@ -40,11 +40,20 @@ class CourseController extends AbstractController
     }
 
     #[Route('/{id}/modifier', name: 'edit',requirements:['id'=>'\d+'],methods: ['GET','POST'])]
-    public function edit(int $id): Response
+    public function edit(Course $course,Request $request,EntityManagerInterface $em): Response
     {
-        //TODO Rechercher dans la BD le cours en fonction de son ID pour le mettre à jour.
+        //Ici Symfony associe l'id à l'objet Course c'est comme s'il faisait une requete avec le find en lui passant le parametre id.
+        $courseForm = $this->createForm(CourseType::class,$course);
+        $courseForm->handleRequest($request);
+        if($courseForm->isSubmitted() && $courseForm->isValid()){
+            //$em->persist($course) pas obligatoire car Symfony a déjà associé notre objet.
+            $course->setDateModified(new \DateTimeImmutable());
+            $em->flush();
+            $this->addFlash('success','Le cours a été modifié');
+            return $this->redirectToRoute('app_cours_show',['id'=>$course->getId()]);
+        }
         return $this->render('course/edit.html.twig',
-            []
+            ["courseForm"=>$courseForm]
         );
     }
 
@@ -59,7 +68,7 @@ class CourseController extends AbstractController
         //Associe mon formulaire à mon objet
         $courseForm->handleRequest($request);
         //Je teste si le formulaire a été soumis
-        if($courseForm->isSubmitted()){
+        if($courseForm->isSubmitted() && $courseForm->isValid()){
             //J'enregistre dans ma BD le cours.
             $em->persist($course);
             $em->flush();
