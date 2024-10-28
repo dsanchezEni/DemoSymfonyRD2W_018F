@@ -33,7 +33,7 @@ class Category
     /**
      * @var Collection<int, Course>
      */
-    #[ORM\OneToMany(targetEntity: Course::class, mappedBy: 'category')]
+    #[ORM\OneToMany(targetEntity: Course::class, mappedBy: 'category',cascade: ['remove'])]
     private Collection $courses;
 
     public function __construct()

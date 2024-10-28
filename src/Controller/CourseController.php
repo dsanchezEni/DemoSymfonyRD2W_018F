@@ -118,4 +118,21 @@ class CourseController extends AbstractController
             []
         );
     }
+
+    #[Route('/{id}/supprimer', name: 'supprimer',requirements:['id'=>'\d+'],methods: ['GET'])]
+    function delete(Course $course,Request $request,EntityManagerInterface $em): Response
+    {
+        if($this->isCsrfTokenValid('delete-'.$course->getId(),$request->get('token'))) {
+            try {
+                $em->remove($course);
+                $em->flush();
+                $this->addFlash("success", "Le cours a été supprimé");
+            } catch (\Exception $ex) {
+                $this->addFlash('danger', "Le cours n'a pas été supprimé");
+            }
+        }else{
+            $this->addFlash('danger', "Le cours n'a pas été supprimé: problème de token");
+        }
+        return $this->redirectToRoute("app_cours_list");
+    }
 }

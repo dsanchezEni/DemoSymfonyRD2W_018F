@@ -96,6 +96,10 @@ class Trainer
         return $this;
     }
 
+    public function fullname(): string{
+        return $this->getLastname().' '.$this->firstname;
+    }
+
     /**
      * @return Collection<int, Course>
      */

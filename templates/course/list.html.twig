@@ -19,8 +19,10 @@
                 {% endfor %}
             </ul>
             </p>
-            <a href="{{ path('app_cours_edit',{'id':cours.id}) }}" title="Modifier le cours">Modifier</a>
+            <a href="{{ path('app_cours_edit',{'id':cours.id}) }}" class="btn btn-warning" title="Modifier le cours">Modifier</a>
+            <a href="{{ path('app_cours_supprimer',{'id':cours.id, 'token':csrf_token('delete-'~cours.id)}) }}" class="btn btn-danger" title="Supprimer le cours">Supprimer</a>
         </li>
+        <hr>
     {% else %}
         <p>Aucun cours présent dans la BD.</p>
     {% endfor %}

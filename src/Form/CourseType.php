@@ -2,7 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Course;
+use App\Entity\Trainer;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -27,6 +31,24 @@ class CourseType extends AbstractType
             ])
             ->add('duration', IntegerType::class,[
                 'label'=>'Durée (jours)'
+            ])
+            ->add('category',EntityType::class,[
+                'label'=>'Catégorie',
+                'class'=>Category::class,
+                'choice_label'=>'name',
+                'placeholder'=>'--choisir une catégorie--'
+            ])
+            ->add('trainers',EntityType::class,[
+                'query_builder'=>function(EntityRepository $er){
+                return $er->createQueryBuilder('f')
+                    ->orderBy('f.lastname', 'ASC')
+                    ->addOrderBy('f.firstname', 'ASC');
+                },
+                'label'=>'Formateurs',
+                'class'=>Trainer::class,
+                'choice_label'=>'fullname',
+                'placeholder'=>'--choisir un formateur--',
+                'multiple'=>true
             ])
             ->add('published', CheckboxType::class,
                 [
