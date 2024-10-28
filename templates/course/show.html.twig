@@ -5,6 +5,16 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Le titre du cours</h1>
+    <h1>{{ cours.name }}</h1>
+    <p>{{ cours.content | raw }}</p>
+    <p>Durée: {{ cours.duration }} (jours)</p>
+    <p>Date Création: {{ cours.dateCreated | date("d/m/Y à h:i:s") }} (jours)</p>
+    <p>Nombre de formateurs: {{ cours.trainers | length }}</p>
+    <p>Liste des formateurs: </p>
+    <ul>
+        {% for trainer in cours.trainers %}
+            <li>{{ trainer.firstname ~' '~trainer.lastname }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 

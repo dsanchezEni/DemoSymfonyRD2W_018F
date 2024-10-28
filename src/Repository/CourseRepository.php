@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Course;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,7 +21,7 @@ class CourseRepository extends ServiceEntityRepository
      * Méthode qui permet de retourner les 5 derniers cours créés.
      * @return array
      */
-    public function findLastCourses(int $duration=2) :array
+    public function findLastCourses(int $duration=2) :Paginator
     {
         //En DQL
         /*$entityManager = $this->getEntityManager();
@@ -34,12 +35,17 @@ class CourseRepository extends ServiceEntityRepository
 
         //En QueryBuilder
         $querybuilder = $this->createQueryBuilder('c')
+            ->addSelect('ca')
+            ->addSelect('f')
+            ->leftJoin('c.category','ca')
+            ->leftJoin('c.trainers','f')
             ->andWhere('c.duration > :duration')
             ->addOrderBy('c.dateCreated', 'DESC')
             ->setParameter('duration', $duration)
             ->setMaxResults(5);
         $query = $querybuilder->getQuery();
-        return $query->getResult();
+        //return $query->getResult();
+        return new Paginator($query);
     }
 
     //    /**

@@ -8,9 +8,17 @@
         <li>
             <p>Nom : {{ cours.name }}</p>
             <p>Contenu: {{ cours.content }}</p>
+            <p>Catégorie: {{ cours.category ? cours.category.name: '?' }}</p>
             <p>Durée (en jours): {{ cours.duration }}</p>
             <p>Publié: {{ cours.published ? "Oui" : "Non" }}</p>
             <p>Date Création: {{ cours.dateCreated | date('Y-m-d h:i:s') }}</p>
+            <p>Nombre formateurs: {{ cours.trainers |length }}
+            <ul>
+                {% for trainer in cours.trainers %}
+                    <li>{{ trainer.firstname ~' '~trainer.lastname }}</li>
+                {% endfor %}
+            </ul>
+            </p>
             <a href="{{ path('app_cours_edit',{'id':cours.id}) }}" title="Modifier le cours">Modifier</a>
         </li>
     {% else %}

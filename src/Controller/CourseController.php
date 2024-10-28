@@ -31,11 +31,11 @@ class CourseController extends AbstractController
     }
 
     #[Route('/{id}', name: 'show',requirements:['id'=>'\d+'],methods: ['GET'])]
-    public function show(int $id): Response
+    public function show(Course $cours): Response
     {
         //TODO Rechercher dans la BD le cours en fonction de son ID.
         return $this->render('course/show.html.twig',
-            []
+            ["cours" => $cours]
         );
     }
 
