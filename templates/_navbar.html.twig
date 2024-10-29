@@ -17,9 +17,40 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_cours_list') }}" title="Cours">Cours</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_cours_create') }}" title="Créer Cours">Créer Cours</a>
-                </li>
+                {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_cours_create') }}" title="Créer Cours">Créer Cours</a>
+                    </li>
+                {% endif %}
+                {% if is_granted("ROLE_ADMIN") %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_admin_dashboard') }}" title="Dashboard Admin">Dashboard</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}"
+                           title="Se déconnecter">
+                            Se déconnecter
+                        </a>
+                    </li>
+                {% else  %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_register') }}"
+                           title="S'inscrire">
+                            S'inscrire
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}"
+                           title="Se connecter">
+                            Se connecter
+                        </a>
+                    </li>
+                {% endif %}
+
             </ul>
         </div>
     </div>
