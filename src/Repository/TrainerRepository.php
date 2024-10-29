@@ -23,12 +23,12 @@ class TrainerRepository extends ServiceEntityRepository
      */
     public function getTrainers($cours): ?array
     {
-            return $this->createQueryBuilder('t')
-                ->andWhere('t.courses = :val')
-                ->setParameter('val', $cours)
-                ->getQuery()
-                ->getOneOrNullResult()
-            ;
+        return $this->createQueryBuilder('t')
+            ->innerJoin('t.courses', 'c')
+            ->andWhere('c.id = :coursId')
+            ->setParameter('coursId', $cours->getId())
+            ->getQuery()
+            ->getResult();
     }
 
     //    /**

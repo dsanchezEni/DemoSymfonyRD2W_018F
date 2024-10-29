@@ -144,7 +144,7 @@ class CourseController extends AbstractController
         return $this->render('course/trainers.html.twig',
             [
                 "course"=>$course,
-                //"trainers"=>$trainerRepository->getTrainers($course)]);
-                "trainers"=>$trainerRepository->findAll()]);
+                "trainers"=>$trainerRepository->getTrainers($course)]);
+                //"trainers"=>$trainerRepository->findAll()]);
     }
 }
