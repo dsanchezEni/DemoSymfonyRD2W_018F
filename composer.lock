@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1464de50781157e207fef09d15f48816",
+    "content-hash": "1cdf2e42dfed6239e5360314dae2b16b",
     "packages": [
         {
             "name": "composer/semver",
@@ -2592,16 +2592,16 @@
         },
         {
             "name": "symfony/clock",
-            "version": "v6.4.8",
+            "version": "v6.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/clock.git",
-                "reference": "7a4840efd17135cbd547e41ec49fb910ed4f8b98"
+                "reference": "b2bf55c4dd115003309eafa87ee7df9ed3dde81b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/clock/zipball/7a4840efd17135cbd547e41ec49fb910ed4f8b98",
-                "reference": "7a4840efd17135cbd547e41ec49fb910ed4f8b98",
+                "url": "https://api.github.com/repos/symfony/clock/zipball/b2bf55c4dd115003309eafa87ee7df9ed3dde81b",
+                "reference": "b2bf55c4dd115003309eafa87ee7df9ed3dde81b",
                 "shasum": ""
             },
             "require": {
@@ -2646,7 +2646,7 @@
                 "time"
             ],
             "support": {
-                "source": "https://github.com/symfony/clock/tree/v6.4.8"
+                "source": "https://github.com/symfony/clock/tree/v6.4.13"
             },
             "funding": [
                 {
@@ -2662,7 +2662,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-31T14:51:39+00:00"
+            "time": "2024-09-25T14:18:03+00:00"
         },
         {
             "name": "symfony/config",
@@ -4500,16 +4500,16 @@
         },
         {
             "name": "symfony/messenger",
-            "version": "v6.4.12",
+            "version": "v6.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/messenger.git",
-                "reference": "05035355ef94de2cb054f8697e65d82f67bf89d4"
+                "reference": "5cd75048611f7a86a7dca7f1cf7089d0d7ef90ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/messenger/zipball/05035355ef94de2cb054f8697e65d82f67bf89d4",
-                "reference": "05035355ef94de2cb054f8697e65d82f67bf89d4",
+                "url": "https://api.github.com/repos/symfony/messenger/zipball/5cd75048611f7a86a7dca7f1cf7089d0d7ef90ff",
+                "reference": "5cd75048611f7a86a7dca7f1cf7089d0d7ef90ff",
                 "shasum": ""
             },
             "require": {
@@ -4567,7 +4567,7 @@
             "description": "Helps applications send and receive messages to/from other applications or via message queues",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/messenger/tree/v6.4.12"
+                "source": "https://github.com/symfony/messenger/tree/v6.4.13"
             },
             "funding": [
                 {
@@ -4583,7 +4583,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-08T12:31:10+00:00"
+            "time": "2024-09-25T14:18:03+00:00"
         },
         {
             "name": "symfony/mime",
@@ -7542,6 +7542,53 @@
             "time": "2024-09-17T12:47:12+00:00"
         },
         {
+            "name": "symfonycasts/reset-password-bundle",
+            "version": "v1.22.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SymfonyCasts/reset-password-bundle.git",
+                "reference": "d9cf4395c0a19a3093bc51b10f508b38f98117f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SymfonyCasts/reset-password-bundle/zipball/d9cf4395c0a19a3093bc51b10f508b38f98117f5",
+                "reference": "d9cf4395c0a19a3093bc51b10f508b38f98117f5",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=8.1.10",
+                "symfony/config": "^5.4 | ^6.0 | ^7.0",
+                "symfony/dependency-injection": "^5.4 | ^6.0 | ^7.0",
+                "symfony/deprecation-contracts": "^2.2 | ^3.0",
+                "symfony/http-kernel": "^5.4 | ^6.0 | ^7.0"
+            },
+            "require-dev": {
+                "doctrine/annotations": "^1.0",
+                "doctrine/doctrine-bundle": "^2.8",
+                "doctrine/orm": "^2.13",
+                "phpstan/phpstan": "^1.11.x-dev",
+                "symfony/framework-bundle": "^5.4 | ^6.0 | ^7.0",
+                "symfony/phpunit-bridge": "^5.4 | ^6.0 | ^7.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "SymfonyCasts\\Bundle\\ResetPassword\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Symfony bundle that adds password reset functionality.",
+            "support": {
+                "issues": "https://github.com/SymfonyCasts/reset-password-bundle/issues",
+                "source": "https://github.com/SymfonyCasts/reset-password-bundle/tree/v1.22.0"
+            },
+            "time": "2024-06-06T11:59:57+00:00"
+        },
+        {
             "name": "twig/extra-bundle",
             "version": "v3.13.0",
             "source": {
@@ -10025,7 +10072,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
@@ -10033,6 +10080,6 @@
         "ext-ctype": "*",
         "ext-iconv": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
