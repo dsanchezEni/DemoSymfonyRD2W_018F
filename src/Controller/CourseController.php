@@ -5,12 +5,15 @@ namespace App\Controller;
 use App\Entity\Course;
 use App\Form\CourseType;
 use App\Repository\CourseRepository;
+use App\Repository\TrainerRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 #[Route('/cours', name: 'app_cours_')]
 class CourseController extends AbstractController
 {
@@ -134,5 +137,14 @@ class CourseController extends AbstractController
             $this->addFlash('danger', "Le cours n'a pas été supprimé: problème de token");
         }
         return $this->redirectToRoute("app_cours_list");
+    }
+    #[Route('/{id}/formateurs', name: 'trainers',requirements:['id'=>'\d+'],methods: ['GET'])]
+    #[IsGranted("ROLE_PLANNER")]
+    public function trainers(Course $course,TrainerRepository $trainerRepository): Response{
+        return $this->render('course/trainers.html.twig',
+            [
+                "course"=>$course,
+                //"trainers"=>$trainerRepository->getTrainers($course)]);
+                "trainers"=>$trainerRepository->findAll()]);
     }
 }

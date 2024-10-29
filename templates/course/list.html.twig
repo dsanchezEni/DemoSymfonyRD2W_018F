@@ -14,9 +14,16 @@
             <p>Date Création: {{ cours.dateCreated | date('Y-m-d h:i:s') }}</p>
             <p>Nombre formateurs: {{ cours.trainers |length }}
             <ul>
-                {% for trainer in cours.trainers %}
-                    <li>{{ trainer.firstname ~' '~trainer.lastname }}</li>
-                {% endfor %}
+                {% if is_granted("ROLE_PLANNER") and (cours.trainers.count > 0) %}
+                    {#{% for trainer in cours.trainers %}
+                        <li>{{ trainer.firstname ~' '~trainer.lastname }}</li>
+                    {% endfor %}#}
+                    <a href="{{ path('app_cours_trainers',{'id':cours.id}) }}">
+                        {{ cours.trainers|length }}
+                    </a>
+                {% else %}
+                    {{ cours.trainers|length }}
+                {% endif  %}
             </ul>
             </p>
             <a href="{{ path('app_cours_edit',{'id':cours.id}) }}" class="btn btn-warning" title="Modifier le cours">Modifier</a>

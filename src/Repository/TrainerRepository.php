@@ -16,6 +16,21 @@ class TrainerRepository extends ServiceEntityRepository
         parent::__construct($registry, Trainer::class);
     }
 
+    /**
+     * Récupérer les trainers en fonction du cours qu'il donne.
+     * @param $cours
+     * @return array|null
+     */
+    public function getTrainers($cours): ?array
+    {
+            return $this->createQueryBuilder('t')
+                ->andWhere('t.courses = :val')
+                ->setParameter('val', $cours)
+                ->getQuery()
+                ->getOneOrNullResult()
+            ;
+    }
+
     //    /**
     //     * @return Trainer[] Returns an array of Trainer objects
     //     */

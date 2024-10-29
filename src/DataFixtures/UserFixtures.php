@@ -29,6 +29,16 @@ class UserFixtures extends Fixture
         $userAdmin->setPassword($password);
         $manager->persist($userAdmin);
 
+        //Créer un planificateur
+        $userAdmin = new User();
+        $userAdmin->setFirstName('planif');
+        $userAdmin->setLastName('planif');
+        $userAdmin->setEmail('planif@test.fr');
+        $userAdmin->setRoles(['ROLE_PLANNER']);
+        $password=$this->userPasswordHasher->hashPassword($userAdmin,'123456');
+        $userAdmin->setPassword($password);
+        $manager->persist($userAdmin);
+
         //Créer 10 Utilisateurs
         for ($i = 0; $i < 10; $i++) {
             $user = new User();
