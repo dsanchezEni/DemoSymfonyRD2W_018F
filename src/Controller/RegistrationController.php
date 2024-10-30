@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Notification\Sender;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -15,7 +16,11 @@ use Symfony\Component\Routing\Attribute\Route;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
+    public function register(Request $request,
+                             UserPasswordHasherInterface $userPasswordHasher,
+                             Security $security,
+                             EntityManagerInterface $entityManager,
+                             Sender $sender): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -30,6 +35,9 @@ class RegistrationController extends AbstractController
             $user->setRoles(['ROLE_USER']);
             $entityManager->persist($user);
             $entityManager->flush();
+
+            //Utilisation du Service pour créer un fichier pour l'admin afin de savoir qu'un utilisateur est inscrit.
+            $sender->sendNewUserNotificationToAdmin($user);
 
             // do anything else you need here, like send an email
 
