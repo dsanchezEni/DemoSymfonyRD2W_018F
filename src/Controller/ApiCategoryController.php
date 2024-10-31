@@ -11,6 +11,8 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ApiCategoryController extends AbstractController
 {
@@ -33,10 +35,19 @@ class ApiCategoryController extends AbstractController
     }
 
     #[Route('/api/categories', name: 'api_category_create', methods: ['POST'])]
-    public function create(Request $request, SerializerInterface $serializer,EntityManagerInterface $em): JsonResponse{
+    public function create(Request $request, SerializerInterface $serializer,
+                           EntityManagerInterface $em,ValidatorInterface $validator): JsonResponse{
        //On récupére les données dans la requete.
         $data = $request->getContent();
         $category = $serializer->deserialize($data, Category::class, 'json');
+
+        //Vérifie à la main que toutes les contraintes sur category sont respectées.
+        $errors = $validator->validate($category);
+        if(count($errors) > 0){
+            $errorJson=$serializer->serialize($this->getErrors($errors),'json');
+            return new JsonResponse($errorJson,Response::HTTP_BAD_REQUEST,[],true);
+        }
+
         $em->persist($category);
         $em->flush();
         //On retourne une réponse avec le code statut 201 et la nouvelle catégorie au format JSON
@@ -72,5 +83,13 @@ class ApiCategoryController extends AbstractController
         $em->flush();
         //On retourne une réponse avec le code statut 201 et la nouvelle catégorie au format JSON
         return $this->json(null,Response::HTTP_NO_CONTENT);
+    }
+
+    private function getErrors(ConstraintViolationListInterface $constraintViolationList){
+        $errors=[];
+        foreach ($constraintViolationList as $violation){
+            $errors[$violation->getPropertyPath()]=$violation->getMessage();
+        }
+        return $errors;
     }
 }
